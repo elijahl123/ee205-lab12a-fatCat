@@ -1,0 +1,30 @@
+###############################################################################
+###         University of Hawaii, College of Engineering
+### @brief  Lab 07d - animalFarm1 - EE 205 - Spr 2022
+###
+### @file .gitignore
+### @version 1.0
+###
+### Tells git which files to ignore
+###
+### @author Elijah Lopez <elijahl7@hawaii.edu>
+### @date   03_01_2022
+###############################################################################
+
+# Ignore all object files
+*.o
+
+# Ignore the executable file
+animalFarm1
+a.out
+
+# Ignore a hidden file for MacOS filesystems
+.DS_Store
+
+# Ignore vi swap files
+.*.swp
+
+# Ignore hidden folders
+.*/
+
+cmake-build-*/
