@@ -40,12 +40,14 @@ enum color {
     PINK
 };
 
+typedef float Weight;
+
 struct Cat {
     char                name[MAX_NAME_LENGTH]   ;
     enum gender         gender                  ;
     enum breed          breed                   ;
     bool                isFixed                 ;
-    float               weight                  ;
+    Weight              weight                  ;
     enum color          collarColor1            ;
     enum color          collarColor2            ;
     unsigned long long  license                 ;

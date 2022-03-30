@@ -43,7 +43,7 @@ bool updateCatName(unsigned long index, char *newName) {
     return true;
 }
 
-bool updateCatWeight(unsigned long index, float newWeight) {
+bool updateCatWeight(unsigned long index, Weight newWeight) {
     if (index >= numCats) {
         fprintf(stderr, "%s: Index out of range\n", PROGRAM_NAME);
         return false;

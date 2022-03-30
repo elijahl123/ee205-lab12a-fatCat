@@ -12,7 +12,7 @@ bool validateCatColorCombination(const unsigned long index, const enum color col
     return false;
 }
 
-bool addCat(const char *name, const enum gender gender, const enum breed breed, bool isFixed, const float weight, const enum color collarColor1, const enum color collarColor2, const unsigned long long license) {
+bool addCat(const char *name, const enum gender gender, const enum breed breed, bool isFixed, const Weight weight, const enum color collarColor1, const enum color collarColor2, const unsigned long long license) {
     // returns index of the cat in the database
     if (numCats >= MAX_CATS) {
         fprintf(stderr, "%s: You have reached the maximum amount of cats!\n", PROGRAM_NAME);

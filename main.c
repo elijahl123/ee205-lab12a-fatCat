@@ -17,12 +17,12 @@ int main() {
     printf("Starting %s\n", PROGRAM_NAME);
     initDatabase();
 
-    addCat( "Loki",  MALE,           PERSIAN,    true,   8.5,    BLACK, WHITE, 101 );
-    addCat( "Milo",  MALE,           MANX,       true,   7.0,    BLACK, RED,   102 );
-    addCat( "Bella", FEMALE,         MAINE_COON, true,   18.2,   BLACK, BLUE,  103 );
-    addCat( "Kali",  FEMALE,         SHORTHAIR,  false,  9.2,    BLACK, GREEN, 104 );
-    addCat( "Trin",  FEMALE,         MANX,       true,   12.2,   BLACK, PINK,  105 );
-    addCat( "Chili", UNKNOWN_GENDER, SHORTHAIR,  false,  19.0,   WHITE, BLACK, 106 );
+    addCat( "Loki",  MALE,           PERSIAN,    true,   (Weight) 8.5,    BLACK, WHITE, 101 );
+    addCat( "Milo",  MALE,           MANX,       true,   (Weight) 7.0,    BLACK, RED,   102 );
+    addCat( "Bella", FEMALE,         MAINE_COON, true,   (Weight) 18.2,   BLACK, BLUE,  103 );
+    addCat( "Kali",  FEMALE,         SHORTHAIR,  false,  (Weight) 9.2,    BLACK, GREEN, 104 );
+    addCat( "Trin",  FEMALE,         MANX,       true,   (Weight) 12.2,   BLACK, PINK,  105 );
+    addCat( "Chili", UNKNOWN_GENDER, SHORTHAIR,  false,  (Weight) 19.0,   WHITE, BLACK, 106 );
 
 #ifndef NDEBUG
     printf("Starting %s -- testing\n", PROGRAM_NAME);
@@ -45,7 +45,7 @@ int main() {
     // Test not finding a cat
     assert(findCat("Bella's not here") == -1);
     // Test addCat details
-    size_t testCat = addCat("Oscar", UNKNOWN_GENDER, SHORTHAIR, false, 1.1, RED, BLACK, 111);
+    size_t testCat = addCat("Oscar", UNKNOWN_GENDER, SHORTHAIR, false, (Weight) 1.1, RED, BLACK, 111);
     assert(testCat != BAD_CAT);
     assert(testCat < MAX_CATS);
     // Test setting a large name

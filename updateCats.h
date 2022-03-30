@@ -16,7 +16,7 @@ extern bool fixCat(unsigned long);
 
 extern bool updateCatName(unsigned long, char *);
 
-extern bool updateCatWeight(unsigned long, float);
+extern bool updateCatWeight(unsigned long, Weight);
 
 extern bool updateCatCollar1(const unsigned long, const enum color);
 
