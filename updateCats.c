@@ -8,7 +8,7 @@
 #include "reportCats.h"
 
 
-bool fixCat(unsigned long index) {
+bool fixCat(NumCats index) {
     if (index >= numCats) {
         fprintf(stderr, "%s: Index out of range\n", PROGRAM_NAME);
         return false;
@@ -18,7 +18,7 @@ bool fixCat(unsigned long index) {
     return true;
 }
 
-bool updateCatName(unsigned long index, char *newName) {
+bool updateCatName(NumCats index, char *newName) {
     if (index >= numCats) {
         fprintf(stderr, "%s: Index out of range\n", PROGRAM_NAME);
         return false;
@@ -32,7 +32,7 @@ bool updateCatName(unsigned long index, char *newName) {
         return false;
     }
 
-    for (size_t i = 0; i < numCats; ++i) {
+    for (NumCats i = 0; i < numCats; ++i) {
         if (strncmp(cats[i].name, newName, MAX_NAME_LENGTH) == 0) {
             fprintf(stderr, "%s: Cat with this name already exists.\n", PROGRAM_NAME);
             return false;
@@ -43,7 +43,7 @@ bool updateCatName(unsigned long index, char *newName) {
     return true;
 }
 
-bool updateCatWeight(unsigned long index, Weight newWeight) {
+bool updateCatWeight(NumCats index, Weight newWeight) {
     if (index >= numCats) {
         fprintf(stderr, "%s: Index out of range\n", PROGRAM_NAME);
         return false;
@@ -58,12 +58,12 @@ bool updateCatWeight(unsigned long index, Weight newWeight) {
     return true;
 }
 
-bool updateCatCollar1(const unsigned long index, const enum color collarColor1) {
+bool updateCatCollar1(const NumCats index, const enum color collarColor1) {
     if (index >= numCats) {
         fprintf(stderr, "%s: Index out of range\n", PROGRAM_NAME);
         return false;
     }
-    for (size_t i = 0; i < numCats && i != index; ++i) {
+    for (NumCats i = 0; i < numCats && i != index; ++i) {
         if (collarColor1 == cats[i].collarColor1 && cats[index].collarColor2 == cats[i].collarColor2) {
             fprintf(stderr, "%s: A cat with this collar combination already exists.\n", PROGRAM_NAME);
             printf("%zu\n", i);
@@ -74,12 +74,12 @@ bool updateCatCollar1(const unsigned long index, const enum color collarColor1) 
     return true;
 }
 
-bool updateCatCollar2(const unsigned long index, const enum color collarColor2) {
+bool updateCatCollar2(const NumCats index, const enum color collarColor2) {
     if (index >= numCats) {
         fprintf(stderr, "%s: Index out of range\n", PROGRAM_NAME);
         return false;
     }
-    for (size_t i = 0; i < numCats && i != index; ++i) {
+    for (NumCats i = 0; i < numCats && i != index; ++i) {
         if (collarColor2 == cats[i].collarColor2 && cats[index].collarColor1 == cats[i].collarColor1) {
             fprintf(stderr, "%s: A cat with this collar combination already exists.\n", PROGRAM_NAME);
             printf("%zu\n", i);
@@ -90,12 +90,12 @@ bool updateCatCollar2(const unsigned long index, const enum color collarColor2) 
     return true;
 }
 
-bool updateLicense(const unsigned long index, const unsigned long long license) {
+bool updateLicense(const NumCats index, const unsigned long long license) {
     if (index >= numCats) {
         fprintf(stderr, "%s: Index out of range\n", PROGRAM_NAME);
         return false;
     }
-    for (size_t i = 0; i < numCats; ++i) {
+    for (NumCats i = 0; i < numCats; ++i) {
         if (cats[i].license == license) {
             fprintf(stderr, "%s: A cat with this license already exists.\n", PROGRAM_NAME);
             return false;

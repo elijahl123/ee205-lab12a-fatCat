@@ -2,11 +2,11 @@
 #include <stdio.h>
 #include "config.h"
 
-size_t numCats;
+NumCats numCats;
 
 struct Cat cats[MAX_CATS];
 
-size_t initDatabase() {
+NumCats initDatabase() {
     numCats = 0;
     return numCats;
 }

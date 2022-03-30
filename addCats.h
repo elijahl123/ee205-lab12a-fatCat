@@ -16,6 +16,6 @@
 #define BAD_CAT false
 #define GOOD_CAT true
 
-extern bool validateCatColorCombination(const unsigned long, const enum color, const enum color);
+extern bool validateCatColorCombination(unsigned long, enum color, enum color);
 
-extern bool addCat(const char *, const enum gender, const enum breed, const bool, const Weight, const enum color, const enum color, const unsigned long long);
+extern bool addCat(const char *, enum gender, enum breed, bool, Weight, enum color, enum color, unsigned long long);

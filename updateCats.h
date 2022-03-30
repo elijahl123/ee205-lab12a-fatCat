@@ -11,15 +11,16 @@
 #pragma once
 
 #include <stdbool.h>
+#include "catDatabase.h"
 
-extern bool fixCat(unsigned long);
+extern bool fixCat(NumCats);
 
-extern bool updateCatName(unsigned long, char *);
+extern bool updateCatName(NumCats, char *);
 
-extern bool updateCatWeight(unsigned long, Weight);
+extern bool updateCatWeight(NumCats, Weight);
 
-extern bool updateCatCollar1(const unsigned long, const enum color);
+extern bool updateCatCollar1(NumCats, enum color);
 
-extern bool updateCatCollar2(const unsigned long, const enum color);
+extern bool updateCatCollar2(NumCats, enum color);
 
-extern bool updateLicense(const unsigned long, const unsigned long long);
+extern bool updateLicense(NumCats, unsigned long long);

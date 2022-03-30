@@ -16,6 +16,8 @@
 #define MAX_CATS 20
 #define MAX_NAME_LENGTH 30
 
+typedef size_t NumCats;
+
 enum gender {
     UNKNOWN_GENDER,
     MALE,
@@ -55,6 +57,6 @@ struct Cat {
 
 extern struct Cat cats[MAX_CATS];
 
-extern size_t numCats;
+extern NumCats numCats;
 
-extern size_t initDatabase();
+extern NumCats initDatabase();

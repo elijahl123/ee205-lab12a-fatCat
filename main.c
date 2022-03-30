@@ -45,7 +45,7 @@ int main() {
     // Test not finding a cat
     assert(findCat("Bella's not here") == -1);
     // Test addCat details
-    size_t testCat = addCat("Oscar", UNKNOWN_GENDER, SHORTHAIR, false, (Weight) 1.1, RED, BLACK, 111);
+    NumCats testCat = addCat("Oscar", UNKNOWN_GENDER, SHORTHAIR, false, (Weight) 1.1, RED, BLACK, 111);
     assert(testCat != BAD_CAT);
     assert(testCat < MAX_CATS);
     // Test setting a large name

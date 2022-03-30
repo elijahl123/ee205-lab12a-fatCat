@@ -4,7 +4,7 @@
 #include <string.h>
 #include "config.h"
 
-void printCat(unsigned long index) {
+void printCat(NumCats index) {
 
     if (index > MAX_CATS) {
         fprintf(stderr, "%s: Bad cat [%lu]\n", PROGRAM_NAME, index);
@@ -17,7 +17,7 @@ void printCat(unsigned long index) {
 }
 
 void printAllCats() {
-    for (size_t i = 0; i < numCats; ++i) {
+    for (NumCats i = 0; i < numCats; ++i) {
         printf("cat index = [%lu]  name=[%s]  gender=[%d]  breed=[%d]  isFixed=[%d]  weight=[%f]  collarColor1=[%d]  collarColor2=[%d]  license=[%llu]\n", i, cats[i].name, cats[i].gender, cats[i].breed, cats[i].breed, cats[i].weight, cats[i].collarColor1, cats[i].collarColor2, cats[i].license);
     }
 }

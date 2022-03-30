@@ -9,8 +9,9 @@
 /// @date   08_Mar_2022
 ///////////////////////////////////////////////////////////////////////////////
 #pragma once
+#include "catDatabase.h"
 
-extern void printCat (unsigned long);
+extern void printCat (NumCats);
 
 extern void printAllCats ();
 

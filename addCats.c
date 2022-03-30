@@ -5,7 +5,7 @@
 #include <string.h>
 #include "config.h"
 
-bool validateCatColorCombination(const unsigned long index, const enum color collarColor1, const enum color collarColor2) {
+bool validateCatColorCombination(const NumCats index, const enum color collarColor1, const enum color collarColor2) {
     if (cats[index].collarColor1 == collarColor1 && cats[index].collarColor2 == collarColor2) {
         return true;
     }
@@ -24,7 +24,7 @@ bool addCat(const char *name, const enum gender gender, const enum breed breed, 
         return BAD_CAT;
     }
 
-    for (size_t i = 0; i < numCats; ++i) {
+    for (NumCats i = 0; i < numCats; ++i) {
         if (strncmp(cats[i].name, name, MAX_NAME_LENGTH) == 0) {
             fprintf(stderr, "%s: A cat with this name already exists.\n", PROGRAM_NAME);
             return BAD_CAT;
