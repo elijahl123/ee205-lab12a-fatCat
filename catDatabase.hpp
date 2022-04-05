@@ -26,7 +26,7 @@ public:
 
     bool validateDatabase() const;
     void addCat(Cat* newCat);
-    void deleteCat(Cat* catToDelete);
+    bool deleteCat(Cat* catToDelete);
     void deleteAllCats();
     int findCatByName(const char* catName);
     void printAllCats();

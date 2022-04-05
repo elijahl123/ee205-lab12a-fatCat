@@ -55,22 +55,20 @@ void CatDatabase::addCat(Cat *newCat) {
     }
 }
 
-void CatDatabase::deleteCat(Cat *catToDelete) {
+bool CatDatabase::deleteCat(Cat* catToDelete) {
     if (!validateDatabase()) {
-        return;
+        return false;
     }
-    if (catToDelete == catDatabaseHeadPointer) {
-        catDatabaseHeadPointer = catToDelete->next;
-    } else {
-        Cat *currentCat = catDatabaseHeadPointer;
-        while (currentCat->next != catToDelete) {
-            currentCat = currentCat->next;
-        }
-        currentCat->next = catToDelete->next;
+    if (catDatabaseHeadPointer == catToDelete) {
+        catDatabaseHeadPointer = catDatabaseHeadPointer->next;
+        return true;
     }
-    if (!validateDatabase()) {
-        return;
+    Cat *currentCat = catDatabaseHeadPointer;
+    while (currentCat->next != catToDelete) {
+        currentCat = currentCat->next;
     }
+    currentCat->next = catToDelete->next;
+    return true;
 }
 
 void CatDatabase::deleteAllCats() {
