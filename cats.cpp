@@ -19,6 +19,15 @@ Cat::Cat() {
     weight = UNKNOWN_WEIGHT;
 }
 
+Cat::Cat(char *newName, enum gender newGender, enum breed newBreed, Weight newWeight) {
+    Cat::setName(newName);
+    Cat::setWeight(newWeight);
+    Cat::setGender(newGender);
+    Cat::setBreed(newBreed);
+    isCatFixed = false;
+    next = nullptr;
+}
+
 const char *Cat::getName() const {
     return name;
 }
@@ -39,48 +48,44 @@ Weight Cat::getWeight() const {
     return weight;
 }
 
-void Cat::setName(char *newName) {
+bool Cat::setName(char *newName) {
     if (newName == nullptr) {
         cout << PROGRAM_NAME << ": newName cannot be nullptr" << endl;
-        return;
-    } else if (strcmp(newName, "") != 0) {
+        return false;
+    } else if (strcmp(newName, "") == 0) {
         cout << PROGRAM_NAME << ": newName cannot be empty" << endl;
-        return;
+        return false;
     } else if (strlen(newName) > MAX_CAT_NAME_LEN) {
         cout << PROGRAM_NAME << ": newName cannot be longer than " << MAX_CAT_NAME_LEN << " characters" << endl;
-        return;
+        return false;
     }
-    strcpy(name, newName);
+    name = newName;
+    return true;
 }
 
-void Cat::setGender(enum gender newGender) {
+bool Cat::setGender(enum gender newGender) {
     Cat::gender = newGender;
+    return true;
 }
 
-void Cat::setBreed(enum breed newBreed) {
+bool Cat::setBreed(enum breed newBreed) {
     Cat::breed = newBreed;
+    return true;
 }
 
-void Cat::fixCat() {
+bool Cat::fixCat() {
     Cat::isCatFixed = true;
+    return true;
 }
 
-void Cat::setWeight(Weight newWeight) {
+bool Cat::setWeight(Weight newWeight) {
     if (newWeight <= 0) {
         cout << PROGRAM_NAME << ": newWeight must be greater than 0" << endl;
         Cat::weight = UNKNOWN_WEIGHT;
-        return;
+        return false;
     }
     Cat::weight = newWeight;
-}
-
-Cat::Cat(char *newName, enum gender newGender, enum breed newBreed, Weight newWeight) {
-    Cat::setName(newName);
-    Cat::setGender(newGender);
-    Cat::setBreed(newBreed);
-    Cat::setWeight(newWeight);
-    Cat::isCatFixed = false;
-    Cat::next = nullptr;
+    return true;
 }
 
 Cat::~Cat() {
@@ -127,7 +132,6 @@ bool Cat::validate() const noexcept {
     }
     return true;
 }
-
 
 
 

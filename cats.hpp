@@ -64,9 +64,9 @@ public:
     bool        getIsCatFixed() const;
     Weight      getWeight() const;
 
-    void        setName(char *name);
-    void        fixCat();
-    void        setWeight(Weight weight);
+    bool        setName(char *name);
+    bool        fixCat();
+    bool        setWeight(Weight weight);
 
 public:
     Cat();
@@ -75,8 +75,8 @@ public:
     virtual ~Cat();
 
 protected:
-    void setGender(enum gender gender);
-    void setBreed(enum breed newBreed);
+    bool setGender(enum gender gender);
+    bool setBreed(enum breed newBreed);
 
 public:
     bool print() const noexcept;
