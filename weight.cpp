@@ -172,6 +172,18 @@ Weight& Weight::operator=(const Weight &rhs) {
 }
 
 Weight &Weight::operator+=(float rhs_addToWeight) {
+    if (bIsKnown) {
+        if (rhs_addToWeight == 0) {
+            throw out_of_range("Weight cannot be 0");
+        } else if (rhs_addToWeight > maxWeight) {
+            throw out_of_range("Weight cannot be greater than max weight");
+        } else {
+            weight += rhs_addToWeight;
+        }
+    } else {
+        throw out_of_range("Weight is unknown");
+    }
+    return *this;
 }
 
 ostream &operator<<(ostream &lhs_stream, const Weight::UnitOfWeight rhs_UnitOfWeight) {
