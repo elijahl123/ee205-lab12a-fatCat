@@ -1,3 +1,3 @@
 #pragma once
 
-#define PROGRAM_NAME "animalFarm2"
+#define PROGRAM_NAME "fatCat"

@@ -8,6 +8,7 @@
 #include <iomanip>
 
 using namespace std;
+using namespace weight;
 
 const float Weight::UNKNOWN_WEIGHT = -1.0;
 const float Weight::KILOS_IN_A_POUND = 0.453592;
@@ -58,6 +59,14 @@ Weight::Weight(float newWeight, UnitOfWeight newUnitOfWeight, float newMaxWeight
     bHasMax = true;
 }
 
+Weight::~Weight() noexcept {
+    weight = 0.0;
+    maxWeight = 0.0;
+    unitOfWeight = UnitOfWeight::POUND;
+    bIsKnown = false;
+    bHasMax = false;
+}
+
 bool Weight::isWeightKnown() const noexcept {
     return weight != 0;
 }
@@ -97,25 +106,26 @@ Weight::UnitOfWeight Weight::getUnitOfWeight() const noexcept {
 void Weight::setWeight(float newWeight) {
     if (newWeight == 0) {
         throw out_of_range("Weight cannot be 0");
-    } else if (newWeight > maxWeight) {
+    } else if (bHasMax && newWeight > maxWeight) {
         throw out_of_range("Weight cannot be greater than max weight");
     } else {
         weight = newWeight;
+        bIsKnown = true;
     }
 }
 
 void Weight::setWeight(float newWeight, enum UnitOfWeight newUnitOfWeight) {
     if (newWeight == 0) {
         throw out_of_range("Weight cannot be 0");
-    } else if (newWeight > maxWeight) {
+    } else if (bHasMax && newWeight > maxWeight) {
         throw out_of_range("Weight cannot be greater than max weight");
     } else {
-        weight = convertWeight(newWeight, newUnitOfWeight, unitOfWeight);
+        weight = convertWeight(newWeight, unitOfWeight, newUnitOfWeight);
     }
 }
 
 bool Weight::isWeightValid(float newWeight) const noexcept {
-    return newWeight > 0 && newWeight <= maxWeight;
+    return newWeight > 0;
 }
 
 bool Weight::validate() const noexcept {
@@ -186,16 +196,13 @@ Weight &Weight::operator+=(float rhs_addToWeight) {
     return *this;
 }
 
-ostream &operator<<(ostream &lhs_stream, const Weight::UnitOfWeight rhs_UnitOfWeight) {
+std::ostream& weight::operator<<( ostream& lhs_stream, const Weight::UnitOfWeight rhs_UnitOfWeight ) {
     switch( rhs_UnitOfWeight ) {
-        case Weight::POUND:
-            return lhs_stream << Weight::POUND_LABEL;
-        case Weight::KILO:
-            return lhs_stream << Weight::KILO_LABEL;
-        case Weight::SLUG:
-            return lhs_stream << Weight::SLUG_LABEL;
+        case Weight::POUND: return lhs_stream << Weight::POUND_LABEL ;
+        case Weight::KILO:  return lhs_stream << Weight::KILO_LABEL ;
+        case Weight::SLUG:  return lhs_stream << Weight::SLUG_LABEL ;
         default:
-            throw out_of_range( "The unit can’t be mapped to a string");
+            throw out_of_range( "The unit can’t be mapped to a string" );
     }
 }
 

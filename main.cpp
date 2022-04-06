@@ -1,4 +1,5 @@
 #include "config.hpp"
+#include "weight.hpp"
 #include "cats.hpp"
 #include "catDatabase.hpp"
 #include <iostream>
@@ -10,80 +11,73 @@ using namespace std;
 int main() {
     cout << "Starting " << PROGRAM_NAME << endl;
 
-    char lokiName[] = "Loki";
-    Cat* loki =  new Cat(lokiName,  MALE,   PERSIAN,    (Weight) 1.0);
-    catDatabase.addCat(loki);
-    char miloName[] = "Milo";
-    Cat* milo =  new Cat(miloName,  MALE,   MANX,       (Weight) 1.1);
-    catDatabase.addCat(milo);
-    char bellaName[] = "Bella";
-    Cat* bella = new Cat(bellaName, FEMALE, MAINE_COON, (Weight) 1.2);
-    catDatabase.addCat(bella);
-    char kaliName[] = "Kali";
-    Cat* kali =  new Cat(kaliName,  FEMALE, SHORTHAIR,  (Weight) 1.3);
-    catDatabase.addCat(kali);
-    char trinName[] = "Trin";
-    Cat* trin =  new Cat(trinName,  FEMALE, MANX,       (Weight) 1.4);
-    catDatabase.addCat(trin);
-    char chiliName[] = "Chili";
-    Cat* chili = new Cat(chiliName, MALE,   SHORTHAIR,  (Weight) 1.5);
-    catDatabase.addCat(chili);
-    catDatabase.printAllCats();
-    catDatabase.deleteAllCats();
-    catDatabase.printAllCats();
+    weight::Weight* w = new weight::Weight(100.0, weight::Weight::POUND, 200.0);
+    weight::Weight* w2 = new weight::Weight(115.0, weight::Weight::POUND, 200.0);
+    weight::Weight* w3 = new weight::Weight(120.0, weight::Weight::POUND, 200.0);
+
+    w->dump();
+    w2->dump();
+    w3->dump();
+
+    delete w;
+    delete w2;
+    delete w3;
 
 #ifndef NDEBUG
-    // Verify that a cat created with Cat() has all the default values set
-    Cat* defaultCat = new Cat();
-    assert(strncmp(defaultCat->getName(), "", MAX_CAT_NAME_LEN) == 0);
-    assert(defaultCat->getGender() == UNKNOWN_GENDER);
-    assert(defaultCat->getBreed() == UNKNOWN_BREED);
-    assert(defaultCat->getIsCatFixed() == false);
-    assert(defaultCat->getWeight() == UNKNOWN_WEIGHT);
-    // Verify that a cat created with Cat() is not valid
-    assert(defaultCat->validate() == false);
-    // Set name to nullptr
-    assert(defaultCat->setName(nullptr) == false);
-    // Set name to empty string
-    assert(defaultCat->setName("") == false);
-    // Set a 1 character name
-    assert(defaultCat->setName("a") == true);
-    // Set a MAX_CAT_NAME_LEN-1 name
-    char testName[MAX_CAT_NAME_LEN];
-    for (int i = 0; i < MAX_CAT_NAME_LEN - 1; i++) {
-        testName[i] = 'a';
-    }
-    testName[MAX_CAT_NAME_LEN - 1] = '\0';
-    assert(defaultCat->setName(testName) == true);
-    // Set a MAX_CAT_NAME+1 name
-    char testName2[MAX_CAT_NAME_LEN + 1];
-    for (int i = 0; i < MAX_CAT_NAME_LEN + 1; i++) {
-        testName2[i] = 'a';
-    }
-    testName2[MAX_CAT_NAME_LEN + 1] = '\0';
-    assert(defaultCat->setName(testName2) == false);
-    // Fix a default cat and check it before and after it’s fixed
-    assert(defaultCat->getIsCatFixed() == false);
-    assert(defaultCat->fixCat() == true);
-    assert(defaultCat->getIsCatFixed() == true);
-    // Set the weight to 0
-    assert(defaultCat->setWeight(0) == false);
-    // Set the weight to 1/1024
-    assert(defaultCat->setWeight(1.0 / 1024) == true);
-    // Verify that a cat created with Cat(...) is valid
-    Cat* testCat = new Cat("testCat", MALE, PERSIAN, (Weight) 1.0);
-    assert(testCat->validate() == true);
-    // Verify that if you try to create a Cat(...) with any combination of UNKNOWN_GENDER, UNKNOWN_BREED or UNKNOWN_WEIGHT
-    Cat* testCat2 = new Cat("testCat2", UNKNOWN_GENDER, UNKNOWN_BREED, UNKNOWN_WEIGHT);
-    assert(testCat2->validate() == false);
-    // Find a cat by name
-    catDatabase.addCat(testCat);
-    assert(catDatabase.findCatByName("testCat") == 0);
-    // Find a cat by name that doesn’t exist
-    assert(catDatabase.findCatByName("testCat2") == -1);
-    // Delete testCat
-    assert(catDatabase.deleteCat(testCat) == true);
+    cout << "Starting tests for " << PROGRAM_NAME << endl;
 
+    // Test for default constructor
+    weight::Weight* testWeight = new weight::Weight();
+    assert(testWeight->validate() == false);
+    assert(testWeight->isWeightKnown() == false);
+    assert(testWeight->hasMaxWeight() == false);
+    delete testWeight;
+    // Test for constructor with weight and unit
+    testWeight = new weight::Weight(100.0, weight::Weight::POUND);
+    assert(testWeight->validate() == true);
+    assert(testWeight->getWeight() == 100.0);
+    assert(testWeight->getUnitOfWeight() == weight::Weight::POUND);
+    assert(testWeight->isWeightKnown() == true);
+    assert(testWeight->hasMaxWeight() == false);
+    delete testWeight;
+    // Test for constructor with weight, max weight, and unit
+    testWeight = new weight::Weight(100.0, weight::Weight::POUND, 200.0);
+    assert(testWeight->validate() == true);
+    assert(testWeight->getWeight() == 100.0);
+    assert(testWeight->getUnitOfWeight() == weight::Weight::POUND);
+    assert(testWeight->getMaxWeight() == 200.0);
+    assert(testWeight->isWeightKnown() == true);
+    assert(testWeight->hasMaxWeight() == true);
+    // Test testWeight for unit conversion
+    testWeight->setWeight(testWeight->getWeight(), weight::Weight::KILO);
+    assert(testWeight->getWeight() == (float) (100.0 * weight::Weight::KILOS_IN_A_POUND));
+    testWeight->setWeight(100.0, weight::Weight::POUND);
+    // Test the == operator
+    weight::Weight* testWeight2 = new weight::Weight(100.0, weight::Weight::POUND, 200.0);
+    assert(*testWeight == *testWeight2);
+    // Test the != operator
+    weight::Weight* testWeight3 = new weight::Weight(105.0, weight::Weight::POUND, 200.0);
+    assert(*testWeight != *testWeight3);
+    // Test the < operator
+    weight::Weight* testWeight4 = new weight::Weight(105.0, weight::Weight::POUND, 200.0);
+    assert(*testWeight < *testWeight4);
+    // Test the = operator
+    weight::Weight* testWeight5 = new weight::Weight(105.0, weight::Weight::POUND, 200.0);
+    *testWeight = *testWeight5;
+    assert(*testWeight == *testWeight5);
+    // Test the += operator
+    weight::Weight* testWeight6 = new weight::Weight(100.0, weight::Weight::POUND, 200.0);
+    *testWeight6 += 10.0;
+    assert(testWeight6->getWeight() == 110.0);
+    // Delete all testWeight objects
+    delete testWeight;
+    delete testWeight2;
+    delete testWeight3;
+    delete testWeight4;
+    delete testWeight5;
+    delete testWeight6;
+
+    cout << "Finished tests for " << PROGRAM_NAME << endl;
 #endif
 
     cout << "Done with " << PROGRAM_NAME << endl;
